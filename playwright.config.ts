@@ -1,3 +1,4 @@
+
 import { defineConfig } from '@playwright/test';
 import { TestPlan } from './tests/plans/testPlan';
 
@@ -24,5 +25,9 @@ export default defineConfig({
             name: 'Regression',
             testMatch: TestPlan.regression,
         },
+    ],
+    reporter: [
+        ['line'],
+        ['allure-playwright'],
     ],
 });

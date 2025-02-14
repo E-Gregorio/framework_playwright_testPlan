@@ -20,7 +20,7 @@ export class ButtonsPage {
     }
 
     async navigate() {
-        await this.page.goto('https://demoqa.com/buttons');
+        await this.page.goto('https://demoqa.com/buttons', { timeout: 60000 });
     }
 
     async doubleClick() {
