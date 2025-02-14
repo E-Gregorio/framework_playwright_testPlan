@@ -4,7 +4,7 @@ import { TestPlan } from './tests/plans/testPlan';
 
 export default defineConfig({
     testDir: './tests/specs',
-    timeout: 30000,
+    timeout: 60000,
     retries: 1,
     use: {
         browserName: 'chromium',

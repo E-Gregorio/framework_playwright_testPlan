@@ -1,7 +1,6 @@
-const buttonsTest = 'tests/specs/buttons.test.ts';
-
+// ./tests/plans/testPlan.ts
 export const TestPlan = {
-    smoke: [buttonsTest],
-    sanity: [buttonsTest],
-    regression: [buttonsTest],
+    sanity: '**/specs/buttons.test.ts', // Asegúrate de que la ruta sea correcta
+    smoke: '**/smoke/*.test.ts',
+    regression: '**/regression/*.test.ts',
 };
