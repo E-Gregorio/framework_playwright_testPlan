@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "test:smoke": "playwright test --project=smoke",
+    "test:sanity": "playwright test --project=sanity",
+    "test:regression": "playwright test --project=regression",
+    "test:all": "playwright test",
+    "report": "allure generate allure-results --clean && allure open"
   },
   "keywords": [],
   "author": "",

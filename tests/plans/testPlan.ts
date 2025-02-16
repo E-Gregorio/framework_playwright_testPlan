@@ -1,6 +1,24 @@
-// ./tests/plans/testPlan.ts
+// tests/plans/testPlan.ts
 export const TestPlan = {
-    sanity: '**/specs/buttons.test.ts', // Asegúrate de que la ruta sea correcta
-    smoke: '**/smoke/*.test.ts',
-    regression: '**/regression/*.test.ts',
-};
+    sanity: {
+      testMatch: '**/specs/buttons.test.ts',
+      metadata: {
+        group: 'sanity',
+        priority: 'high'
+      }
+    },
+    smoke: {
+      testMatch: '**/smoke/*.test.ts',
+      metadata: {
+        group: 'smoke',
+        priority: 'critical'
+      }
+    },
+    regression: {
+      testMatch: '**/regression/*.test.ts',
+      metadata: {
+        group: 'regression',
+        priority: 'medium'
+      }
+    }
+  };
