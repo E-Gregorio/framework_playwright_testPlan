@@ -11,9 +11,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test-group: [sanity, smoke, regression]
     
     steps:
     - uses: actions/checkout@v4
@@ -33,8 +30,8 @@ jobs:
     - name: Install Allure
       run: npm install -g allure-commandline --save-dev
 
-    - name: Run Playwright ${{ matrix.test-group }} tests
-      run: npm run test:${{ matrix.test-group }}
+    - name: Run Playwright tests
+      run: npx playwright test
       continue-on-error: true
 
     - name: Generate Allure Report
@@ -43,36 +40,19 @@ jobs:
         allure generate allure-results --clean
         echo "Allure report generated"
 
+    # Publicar en GitHub Pages
+    - name: Deploy to GitHub Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        publish_branch: gh-pages
+
     - name: Upload Allure Results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: allure-results-${{ matrix.test-group }}
+        name: allure-results
         path: allure-results/
         retention-days: 30
-
-    - name: Upload Playwright Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-report-${{ matrix.test-group }}
-        path: |
-          playwright-report/
-          test-results/
-        retention-days: 30
-
-    - name: Upload Allure Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: allure-report-${{ matrix.test-group }}
-        path: allure-report/
-        retention-days: 30
-
-    - name: Test Summary
-      if: always()
-      run: |
-        echo "::group::Test Results Summary"
-        echo "Test Group: ${{ matrix.test-group }}"
-        echo "Status: ${{ job.status }}"
-        echo "::endgroup::"
